@@ -1,0 +1,2 @@
+# Ignore local SQLite database file
+database/nvd_cve.db

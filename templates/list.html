@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>CVE LIST</title>
+    <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+    <h1>CVE LIST</h1>
+
+    <table id="cve-table">
+        <thead>
+            <tr>
+                <th>CVE ID</th>
+                <th>IDENTIFIER</th>
+                <th>PUBLISHED DATE</th>
+                <th>LAST MODIFIED DATE</th>
+                <th>STATUS</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cve in cves %}
+            <tr onclick="goToDetail('{{ cve.cve_id }}')">
+                <td>{{ cve.cve_id }}</td>
+                <td>{{ cve.identifier }}</td>
+                <td>{{ cve.published_date.replace('T', ' ') }}</td>
+                <td>{{ cve.last_modified_date.replace('T', ' ') }}</td>
+                <td>{{ cve.status }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="footer">
+        <div>Total Records: {{ total }}</div>
+
+        <label for="results-per-page">Results Per Page:</label>
+        <select id="results-per-page" onchange="changeResultsPerPage()">
+            {% for option in results_per_page_options %}
+            <option value="{{ option }}" {% if per_page == option %}selected{% endif %}>{{ option }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="pagination">
+        {% if page > 1 %}
+            <a href="?page={{ page - 1 }}&limit={{ per_page }}">Previous</a>
+        {% endif %}
+
+        <span>Page {{ page }}</span>
+
+        {% if total > page * per_page %}
+            <a href="?page={{ page + 1 }}&limit={{ per_page }}">Next</a>
+        {% endif %}
+    </div>
+
+    <script src="/static/script.js"></script>
+    <script>
+        function goToDetail(cveId){
+            window.location.href = `/cves/${cveId}`;
+        }
+
+        function changeResultsPerPage(){
+            const limit = document.getElementById('results-per-page').value;
+            window.location.href = `?page=1&limit=${limit}`;
+        }
+    </script>
+</body>
+</html>
