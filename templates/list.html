@@ -32,27 +32,36 @@
     </table>
 
     <div class="footer">
-        <div>Total Records: {{ total }}</div>
-
-        <label for="results-per-page">Results Per Page:</label>
-        <select id="results-per-page" onchange="changeResultsPerPage()">
-            {% for option in results_per_page_options %}
-            <option value="{{ option }}" {% if per_page == option %}selected{% endif %}>{{ option }}</option>
-            {% endfor %}
-        </select>
+        <div style="display: inline;">Total Records: {{ total }}</div>
+    
+        <div style="float: right; display: flex; align-items: center;">
+            <label for="results-per-page" style="margin-right: 5px;">Results Per Page:</label>
+            <select id="results-per-page" onchange="changeResultsPerPage()">
+                {% for option in results_per_page_options %}
+                <option value="{{ option }}" {% if per_page == option %}selected{% endif %}>{{ option }}</option>
+                {% endfor %}
+            </select>
+        </div>
     </div>
-
-    <div class="pagination">
-        {% if page > 1 %}
-            <a href="?page={{ page - 1 }}&limit={{ per_page }}">Previous</a>
+    
+<div class="pagination">
+    {% set query_items = [] %}
+    {% for k, v in query_params.items() %}
+        {% if k != 'page' %}
+            {% set _ = query_items.append(k ~ '=' ~ v) %}
         {% endif %}
+    {% endfor %}
+    {% set query_string = query_items | join('&') %}
+    {% if page > 1 %}
+        <a href="{{ url_for('list_cves') }}?{{ query_string }}{% if query_string %}&{% endif %}page={{ page - 1 }}">Previous</a>
+    {% endif %}
 
-        <span>Page {{ page }}</span>
+    <span>Page {{ page }}</span>
 
-        {% if total > page * per_page %}
-            <a href="?page={{ page + 1 }}&limit={{ per_page }}">Next</a>
-        {% endif %}
-    </div>
+    {% if total > page * per_page %}
+        <a href="{{ url_for('list_cves') }}?{{ query_string }}{% if query_string %}&{% endif %}page={{ page + 1 }}">Next</a>
+    {% endif %}
+</div>
 
     <script src="/static/script.js"></script>
     <script>
@@ -62,7 +71,10 @@
 
         function changeResultsPerPage(){
             const limit = document.getElementById('results-per-page').value;
-            window.location.href = `?page=1&limit=${limit}`;
+            const params = new URLSearchParams(window.location.search);
+            params.set('limit', limit);
+            params.set('page', 1);
+            window.location.href = window.location.pathname + '?' + params.toString();
         }
     </script>
 </body>

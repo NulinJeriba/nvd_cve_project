@@ -56,11 +56,12 @@ def list_cves():
     conn.close()
 
     return render_template('list.html',
-                           cves=cve_list,
-                           total=total_records,
-                           page=page,
-                           per_page=per_page,
-                           results_per_page_options=RESULTS_PER_PAGE_OPTIONS)
+                       cves=cve_list,
+                       total=total_records,
+                       page=page,
+                       per_page=per_page,
+                       results_per_page_options=RESULTS_PER_PAGE_OPTIONS,
+                       query_params=request.args)
 
 @app.route('/cves/<cve_id>')
 def cve_detail(cve_id):
