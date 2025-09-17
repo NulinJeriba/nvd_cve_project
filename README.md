@@ -75,10 +75,10 @@ Ensure your URLs and links match the following patterns for proper navigation an
 ![7. By Score Filter](screenshots/7.%20by%20score%20filter.png)
 
 ## 8. By Last Modified Days Filter
-![8. By Last Modified Days Filter](screenshots/8.%20by%20last_%20modified_%20days%20filter.png)
+![8. By Last Modified Days Filter](screenshots/8.%20by%20last_modified_days%20filter.png)
 
 ## 9. By Year and Last Modified Days Filter
-![9. By Year and Last Modified Days Filter](screenshots/9.%20by%20year%20and%20last_%20modified_%20days%20filter.png)
+![9. By Year and Last Modified Days Filter](screenshots/9.%20by%20year%20and%20last_modified_days%20filter.png)
 
 ## 10. By Year and Score Filter
 ![10. By Year and Score Filter](screenshots/10.%20by%20year%20and%20score%20filter.png)
