@@ -102,10 +102,8 @@ Ensure your URLs and links match the following patterns for proper navigation an
 - **templates/detail.html**  
   Displays detailed CVE description, CVSS V2 metrics table, and associated CPE entries.
 
-## Notes
+## Notes(MAIN)
 
 - The fetch script resumes from the last saved index; no need to re-fetch all data unless you delete the database.
-- API rate limiting and network errors are handled with exponential backoff.
-- Always verify navigation and filters by comparing with the provided screenshots.
-
+- The attached screenshots show the data for approximately 100,000+ CVE records fetched from the official external NVD API and stored in the local SQLite database.
 
